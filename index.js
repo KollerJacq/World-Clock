@@ -35,11 +35,12 @@ function updateTime() {
     )}`;
   }
 }
-updateTime();
-setInterval(updateTime, 1);
 
 function updateCity(event) {
   let cityTimezone = event.target.value;
+  if (cityTimezone === "current") {
+    cityTimezone = moment.tz.guess();
+  }
   let cityName = cityTimezone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimezone);
   console.log(cityTime.format("MMMM Do YYYY"));
@@ -58,3 +59,6 @@ function updateCity(event) {
 
 let citiesSelectElement = document.querySelector("#city");
 citiesSelectElement.addEventListener("change", updateCity);
+updateTime();
+setInterval(updateTime, 1000);
+updateCity();
